@@ -95,12 +95,6 @@ export default function PrivacyPage() {
           <p>We may update this policy as the product evolves. Significant changes will be communicated via the app. Continued use after changes constitutes acceptance.</p>
         </section>
 
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-white">10. Contact</h2>
-          <p>Questions about this policy or data deletion requests:</p>
-          <p className="text-purple-400">privacy@triagent.app</p>
-        </section>
-
         <div className="border-t border-slate-800 pt-8">
           <Link href="/" className="text-sm text-slate-500 hover:text-white transition-colors">
             ← Back to Triagent
