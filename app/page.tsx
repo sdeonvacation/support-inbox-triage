@@ -4,9 +4,9 @@ import { Button } from '@/components/ui/button';
 import { SignInButton } from '@/components/sign-in-button';
 import { SplineSceneBasic } from '@/components/ui/spline-scene-basic';
 import { BackgroundPaths } from '@/components/ui/background-paths';
-import { SparklesCore } from '@/components/ui/sparkles';
 import FlowArt, { FlowSection } from '@/components/ui/story-scroll';
 import { FeatureCards } from '@/components/ui/feature-cards';
+import { SparklesCore } from '@/components/ui/sparkles';
 
 export default function HomePage() {
   return (
