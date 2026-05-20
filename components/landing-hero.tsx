@@ -36,7 +36,7 @@ export function LandingHero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-br from-white via-slate-200 to-slate-400 bg-clip-text text-transparent mb-6"
         >
-          AI-Powered Support Inbox Triage
+          AI-Powered Inbox Triage
         </motion.h1>
 
         <motion.p

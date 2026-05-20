@@ -82,7 +82,12 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="border-t border-slate-800 py-8 text-center text-sm text-slate-600">
-        Built with Next.js · Supabase · OpenAI API
+        <div className="flex items-center justify-center gap-6 flex-wrap">
+          <span>Built with Next.js · Supabase · OpenAI</span>
+          <Link href="/privacy" className="hover:text-slate-400 transition-colors underline underline-offset-2">
+            Privacy Policy
+          </Link>
+        </div>
       </footer>
     </div>
   );
