@@ -1,75 +1,84 @@
 import Link from 'next/link';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { LandingHero } from '@/components/landing-hero';
 import { ArchDiagram } from '@/components/arch-diagram';
 import { Button } from '@/components/ui/button';
 import { SignInButton } from '@/components/sign-in-button';
-import { Zap, Tag, AlertTriangle } from 'lucide-react';
+import { SplineSceneBasic } from '@/components/ui/spline-scene-basic';
+import { BackgroundPaths } from '@/components/ui/background-paths';
+import { SparklesCore } from '@/components/ui/sparkles';
+import FlowArt, { FlowSection } from '@/components/ui/story-scroll';
+import { FeatureCards } from '@/components/ui/feature-cards';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-slate-800 bg-background/80 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-50 border-b border-slate-800 bg-black/80 backdrop-blur-sm">
+          <div className="w-full px-4 sm:px-8 md:px-16 h-16 flex items-center justify-between">
           <Link href="/" className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-            SupportIQ
+            Triagent
           </Link>
           <nav className="flex items-center gap-3">
-            <Button asChild variant="ghost" size="sm">
+            <Button asChild variant="ghost" className="h-11 px-4 text-sm">
               <Link href="/demo">Try Demo</Link>
             </Button>
             <SignInButton />
-            <ThemeToggle />
           </nav>
         </div>
       </header>
 
-      {/* Hero */}
-      <LandingHero />
-
-      {/* Architecture Diagram */}
-      <section className="max-w-4xl mx-auto px-4 py-16">
-        <h2 className="text-2xl font-bold text-center text-slate-200 mb-2">How It Works</h2>
-        <p className="text-center text-slate-500 mb-8">From raw inbox to prioritized triage in seconds</p>
-        <ArchDiagram />
-      </section>
-
-      {/* Features */}
-      <section className="max-w-6xl mx-auto px-4 py-16">
-        <h2 className="text-2xl font-bold text-center text-slate-200 mb-12">Everything you need to triage faster</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition-colors">
-            <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center mb-4">
-              <Zap className="h-5 w-5 text-blue-400" />
-            </div>
-            <h3 className="font-semibold text-white mb-2">Auto-Classify</h3>
-            <p className="text-sm text-slate-400">
-              Automatically categorizes every email into Billing, Bug Reports, Feature Requests, and more — instantly.
-            </p>
+      {/* Scroll Story */}
+      <FlowArt aria-label="Triagent overview">
+        {/* Section 1: Hero */}
+        <FlowSection aria-label="Hero" className="bg-black">
+          <div className="-mx-[4vw] -mt-[clamp(2rem,8vw,4vw)] -mb-[4vw] h-screen">
+            <SplineSceneBasic />
           </div>
+        </FlowSection>
 
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition-colors">
-            <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center mb-4">
-              <Tag className="h-5 w-5 text-purple-400" />
+        {/* Section 2: How It Works */}
+        <FlowSection aria-label="How it works" className="bg-neutral-950">
+          <BackgroundPaths>
+            <div className="min-h-screen flex flex-col items-center justify-center w-full py-16 px-8">
+              <div className="mb-10 text-center">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-purple-400 mb-4">02 / How It Works</p>
+                <h2 className="text-4xl md:text-5xl font-black text-white leading-tight mb-4">
+                  From inbox chaos<br />
+                  <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">to clarity in seconds.</span>
+                </h2>
+                <div className="w-16 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full mb-4 mx-auto" />
+                <p className="text-slate-400 text-base md:text-lg">From raw inbox to prioritized triage in seconds</p>
+              </div>
+              <div className="w-full max-w-4xl">
+                <ArchDiagram />
+              </div>
             </div>
-            <h3 className="font-semibold text-white mb-2">Smart Priority</h3>
-            <p className="text-sm text-slate-400">
-              Detects urgency and revenue impact to surface High priority emails before they become crises.
-            </p>
-          </div>
+          </BackgroundPaths>
+        </FlowSection>
 
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition-colors">
-            <div className="w-10 h-10 bg-red-500/10 rounded-lg flex items-center justify-center mb-4">
-              <AlertTriangle className="h-5 w-5 text-red-400" />
+        {/* Section 3: Features */}
+        <FlowSection aria-label="Features" className="bg-slate-950">
+          <div className="relative w-full flex-1 flex flex-col min-h-screen">
+            <SparklesCore
+              id="features-sparkles"
+              background="transparent"
+              particleColor="#FFFFFF"
+              particleDensity={80}
+              minSize={0.4}
+              maxSize={1}
+              speed={1}
+              className="absolute inset-0 w-full h-full"
+            />
+            <div className="relative z-10 max-w-6xl mx-auto px-4 py-16 w-full flex flex-col justify-center flex-1">
+              <h2 className="text-3xl md:text-4xl font-black text-center mb-4">
+                <span className="text-white">Everything you need </span>
+                <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">to triage faster</span>
+              </h2>
+              <p className="text-center text-slate-500 mb-12 text-sm uppercase tracking-widest">Three tools. One pipeline. Zero noise.</p>
+              <FeatureCards />
             </div>
-            <h3 className="font-semibold text-white mb-2">Escalation Detection</h3>
-            <p className="text-sm text-slate-400">
-              Flags threats, outages, and legal risks automatically so your team can respond before it escalates.
-            </p>
           </div>
-        </div>
-      </section>
+        </FlowSection>
+      </FlowArt>
 
       {/* Footer */}
       <footer className="border-t border-slate-800 py-8 text-center text-sm text-slate-600">

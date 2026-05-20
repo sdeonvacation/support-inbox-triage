@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { SyncResponse, SyncState } from '@/lib/types';
 import { RefreshCw, Check, Loader2, AlertCircle } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { createClient } from '@/lib/supabase';
 
 interface SyncButtonProps {
   onSyncComplete: (response: SyncResponse) => void;
@@ -45,7 +46,17 @@ export function SyncButton({ onSyncComplete }: SyncButtonProps) {
       // Step 2: Classifying
       updateStep(1, 'active');
 
-      const res = await fetch('/api/gmail/sync', { method: 'POST' });
+      const session = (await createClient().auth.getSession()).data.session;
+      console.log('[sync] provider_token:', session?.provider_token ? 'PRESENT' : 'NULL');
+      console.log('[sync] user:', session?.user?.email);
+
+      const res = await fetch('/api/gmail/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider_token: session?.provider_token ?? null,
+        }),
+      });
 
       updateStep(1, 'complete');
 
@@ -55,12 +66,35 @@ export function SyncButton({ onSyncComplete }: SyncButtonProps) {
       updateStep(2, 'complete');
 
       if (!res.ok) {
+        let errorMsg = 'Unknown error';
+        try {
+          const body = await res.json();
+          errorMsg = body.error ?? errorMsg;
+        } catch { /* unparseable body */ }
         setSyncState((prev) => ({ ...prev, status: 'error' }));
+        toast({ title: 'Sync error', description: errorMsg, variant: 'destructive' });
         return;
       }
 
       const data: SyncResponse = await res.json();
       setResult(data);
+
+      if (data.errorCode === 'GMAIL_FETCH_FAILED') {
+        setSyncState((prev) => ({ ...prev, status: 'error' }));
+        toast({ title: 'Gmail fetch failed', description: data.error, variant: 'destructive' });
+        return;
+      }
+
+      if (data.errorCode === 'AI_UNAVAILABLE') {
+        setSyncState((prev) => ({ ...prev, status: 'error' }));
+        toast({ title: 'AI classification failed', description: data.error, variant: 'destructive' });
+        return;
+      }
+
+      if (data.errorCode === 'PARTIAL_FAILURE') {
+        toast({ title: 'Partial sync', description: data.error, variant: 'default' });
+      }
+
       setSyncState((prev) => ({ ...prev, status: 'complete' }));
       onSyncComplete(data);
     } catch (error) {

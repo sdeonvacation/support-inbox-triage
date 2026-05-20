@@ -86,9 +86,13 @@ export async function fetchEmails(
   });
   clearTimeout(listTimeout);
 
-  if (!listRes.ok) return [];
+  if (!listRes.ok) {
+    console.log('[gmail] list failed:', listRes.status, await listRes.text());
+    return [];
+  }
 
   const listData = await listRes.json();
+  console.log('[gmail] messages found:', listData.messages?.length ?? 0);
   const messages: { id: string }[] = listData.messages || [];
 
   const results = await Promise.allSettled(

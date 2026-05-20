@@ -15,7 +15,7 @@ export interface GmailMessage {
 }
 
 export interface ClassificationResult {
-  category: 'Billing' | 'Bug Report' | 'Feature Request' | 'Customer Complaint' | 'Sales Inquiry' | 'General';
+  category: 'Bills & Invoices' | 'Bank Notifications' | 'Promotions' | 'Meeting Requests' | 'Job Alerts' | 'Newsletters' | 'OTPs' | 'Interview Invites' | 'Customer Complaint' | 'Bug Report' | 'Pull Request' | 'Sales Inquiry' | 'Feature Request' | 'General';
   priority: 'High' | 'Medium' | 'Low';
   summary: string;
   sentiment: string;
@@ -30,6 +30,8 @@ export interface SyncResponse {
   skipped: number;
   escalations: number;
   totalTimeMs: number;
+  error?: string;
+  errorCode?: 'GMAIL_FETCH_FAILED' | 'AI_UNAVAILABLE' | 'PARTIAL_FAILURE';
 }
 
 export interface EmailRow {

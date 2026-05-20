@@ -69,6 +69,7 @@ export function LandingHero() {
                 options: {
                   scopes: 'https://www.googleapis.com/auth/gmail.readonly',
                   redirectTo: window.location.origin + '/auth/callback',
+                  queryParams: { access_type: 'offline', prompt: 'consent' },
                 },
               });
             }}

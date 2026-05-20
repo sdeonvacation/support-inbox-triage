@@ -8,8 +8,8 @@ import { ExecutiveSummary } from '@/components/executive-summary';
 import { EmailGrid } from '@/components/email-grid';
 import { ActivityFeed } from '@/components/activity-feed';
 import { FilterBar } from '@/components/filter-bar';
-import { ThemeToggle } from '@/components/theme-toggle';
-import { Button } from '@/components/ui/button';
+import { AuroraButton } from '@/components/ui/aurora-button';
+import { AuroraBorealis } from '@/components/ui/aurora-borealis';
 import { Badge } from '@/components/ui/badge';
 import { DashboardFilters, ActivityFeedItem } from '@/lib/types';
 
@@ -47,7 +47,7 @@ export default function DemoPage() {
     let i = 0;
     const interval = setInterval(() => {
       if (i < allItems.length) {
-        setActivityItems((prev) => [...prev, allItems[i]]);
+        if (allItems[i]) setActivityItems((prev) => [...prev, allItems[i]]);
         i++;
       } else {
         clearInterval(interval);
@@ -57,23 +57,23 @@ export default function DemoPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="relative min-h-screen">
+      <AuroraBorealis />
+      <div className="relative z-10">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-slate-800 bg-background/80 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 border-b border-slate-800/60 bg-black/70 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="text-xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-              SupportIQ
+              Triagent
             </Link>
             <Badge className="bg-purple-600/20 text-purple-300 border-purple-500/30 text-xs">
               Demo Mode
             </Badge>
+            <span className="hidden sm:block text-xs text-slate-600 font-mono">· {demoEmails.length} emails classified</span>
           </div>
           <div className="flex items-center gap-3">
-            <Button asChild variant="outline" size="sm" className="border-slate-700">
-              <Link href="/">Try with your own inbox →</Link>
-            </Button>
-            <ThemeToggle />
+            <Link href="/"><AuroraButton className="text-sm font-semibold px-5 py-2">Try with your own inbox →</AuroraButton></Link>
           </div>
         </div>
       </header>
@@ -98,6 +98,7 @@ export default function DemoPage() {
           </div>
         </div>
       </main>
+      </div>
     </div>
   );
 }
